@@ -1,13 +1,14 @@
 from flask import Flask, request
-import requests
-import json
+from flask_graphql import GraphQLView
 from schema.query import schema
-from sleeper_wrapper import League
 
 app = Flask(__name__)
 
-@app.route("/", methods=['POST'])
-def graphql():
-    data = json.loads(request.data)
-    result = schema.execute(data['query'])
-    return json.dumps(result.data)
+app.add_url_rule('/graphql', view_func=GraphQLView.as_view(
+    'graphql',
+    schema=schema,
+    graphiql=True
+))
+
+if __name__ == '__main__':
+    app.run()
