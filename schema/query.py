@@ -4,7 +4,6 @@ from schema.matchup import Matchup
 from schema.roster import Roster
 from sleeper_wrapper import League, User
 
-league = League(605557759060033536)
 class Query(ObjectType):
 
     user = Field(List(UserType), id=String())
